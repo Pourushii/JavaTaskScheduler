@@ -1,0 +1,77 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Task {
+    String name;
+    int priority;
+
+    public Task(String name, int priority) {
+        this.name = name;
+        this.priority = priority;
+    }
+
+    @Override
+    public String toString() {
+        return "Task: " + name + " | Priority: " + priority;
+    }
+}
+
+class TaskScheduler {
+    private ArrayList<Task> tasks = new ArrayList<>();
+
+    // Function to add a new task
+    public void addTask(String name, int priority) {
+        tasks.add(new Task(name, priority));
+        System.out.println("Task added successfully!\n");
+    }
+
+    // Function to run the task scheduler (Display all tasks)
+    public void runScheduler() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks available.");
+            return;
+        }
+
+        System.out.println("\n--- Task List ---");
+        for (Task task : tasks) {
+            System.out.println(task);
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        TaskScheduler scheduler = new TaskScheduler();
+
+        while (true) {
+            System.out.println("\nTask Scheduler Menu:");
+            System.out.println("1. Add Task");
+            System.out.println("2. Show Tasks");
+            System.out.println("3. Exit");
+            System.out.print("Enter choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter task name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter task priority (1-5): ");
+                    int priority = scanner.nextInt();
+                    scheduler.addTask(name, priority);
+                    break;
+                case 2:
+                    scheduler.runScheduler();
+                    break;
+                case 3:
+                    System.out.println("Exiting Task Scheduler...");
+                    scanner.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice, please try again.");
+            }
+        }
+    }
+}
