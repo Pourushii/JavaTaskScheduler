@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the image file path: ");
+        String imagePath = scanner.nextLine();
+        String detectedDisease = callImageRecognitionSystem(imagePath);
+        String report = generateReport(detectedDisease);
+        System.out.println("\n" + report);
+        scanner.close();
+    }
+
+    public static String callImageRecognitionSystem(String imagePath) {
+        System.out.println("\nProcessing image: " + imagePath);
+        String disease;
+        if (imagePath.contains("leaf_spot")) {
+            disease = "Leaf Spot Disease";
+        } else if (imagePath.contains("rust")) {
+            disease = "Rust Disease";
+        } else if (imagePath.contains("mildew")) {
+            disease = "Powdery Mildew";
+        } else {
+            disease = "Unknown Disease";
+        }
+        return disease;
+    }
+
+    public static String generateReport(String detectedDisease) {
+        StringBuilder report = new StringBuilder();
+        report.append("===== Crop Disease Report =====\n");
+        report.append("Detected Disease: ").append(detectedDisease).append("\n");
+        report.append("-------------------------------\n");
+
+        if (detectedDisease.equals("Leaf Spot Disease")) {
+            report.append("Treatment: Apply fungicides containing copper.\n");
+            report.append("Prevention: Ensure proper plant spacing for air circulation.\n");
+        } else if (detectedDisease.equals("Rust Disease")) {
+            report.append("Treatment: Use sulfur-based fungicides.\n");
+            report.append("Prevention: Avoid overhead watering and remove infected leaves.\n");
+        } else if (detectedDisease.equals("Powdery Mildew")) {
+            report.append("Treatment: Apply neem oil or potassium bicarbonate spray.\n");
+            report.append("Prevention: Improve air circulation and use resistant plant varieties.\n");
+        } else {
+            report.append("No specific treatment found. Consult an agricultural expert.\n");
+        }
+
+        report.append("===============================\n");
+        return report.toString();
+    }
+}
